@@ -1,0 +1,159 @@
+<div class="position-relative">
+  <div class="d-flex justify-content-between py-3 left-layout mh-100">
+    <div class="d-flex gap-1 align-items-center pl-2">
+      <mat-icon class="primary" fontIcon="person"></mat-icon>
+      <div class="fw-semibold pl-2">Business Activity Record Type Directory</div>
+    </div>
+    <div class="d-flex gap-3">
+      <mat-form-field appearance="outline" class="search">
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput class="custom-focused-input " (input)="applyFilter($event)" placeholder="Search">
+      </mat-form-field>
+      <div class="pt-3">
+        <span class="fw-semibold mr-2">List view</span>
+        <mat-slide-toggle [color]="'primary'"></mat-slide-toggle>
+      </div>
+      <div class="d-flex gap-1 align-items-center">
+        <span class="fw-semibold mr-2">Show</span>
+        <mat-form-field appearance="outline">
+          <mat-label>All</mat-label>
+          <mat-select  (valueChange)="onClickBart($event)">
+            <mat-option *ngFor="let category of BART_CATEGORY_CONSTANTS" [value]="category.id">
+              {{category.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex w-100 mh-100 h-table position-relative">
+
+    <div class="w-250 border">
+      <div class="d-flex justify-content-between p-2 headerBartID border-b">
+        <div class="fw-semibold">BART ID</div>
+        <div class="d-flex gap-2">
+          <i class="bi bi-chevron-double-up cursor-pointer"></i>
+          <i class="bi bi-chevron-double-down cursor-pointer"></i>
+          <i class="bi bi-plus-square cursor-pointer"></i>
+        </div>
+      </div>
+      <div class="tree">
+        <mat-tree [dataSource]="dataSourceTree" [treeControl]="treeControl">
+
+          <mat-tree-node (click)="onClickBart(node.id)" class="cursor-pointer"
+            [ngClass]="node.id === selectedNode ? 'active' :''" aria-expanded="true" *matTreeNodeDef="let node"
+            matTreeNodePadding>
+            <span [title]="node.name" class="node-name"> {{node.name}}</span>
+          </mat-tree-node>
+
+          <mat-tree-node [ngClass]="node.id === selectedNode ? 'active' :''" (click)="onClickBart(node.id)"
+            class="cursor-pointer" *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+            <mat-icon matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name" class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+            <span [title]="node.name" class="node-name"> {{node.name}}</span>
+          </mat-tree-node>
+
+        </mat-tree>
+      </div>
+    </div>
+    <div class="border table-bart flex-1">
+      <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="id">
+          <th class="border-r bg-th" hidden mat-header-cell *matHeaderCellDef> Id </th>
+          <td class="border-r" hidden mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="bartName">
+          <th class="border-r bg-th" mat-header-cell *matHeaderCellDef> BART Name </th>
+          <td class="border-r" mat-cell *matCellDef="let element"> {{element.bartName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="bartType">
+          <th class="border-r bg-th" mat-header-cell *matHeaderCellDef> BART Type </th>
+          <td class="border-r" mat-cell *matCellDef="let element"> {{element.bartType}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="categoryGHG">
+          <th class="border-r bg-th" mat-header-cell *matHeaderCellDef> Category: GHG-BO </th>
+          <td class="border-r" mat-cell *matCellDef="let element"> {{element.categoryGHG}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="categoryFunctional">
+          <th class="border-r bg-th" mat-header-cell *matHeaderCellDef> Category: Functional-BO </th>
+          <td class="border-r" mat-cell *matCellDef="let element"> {{element.categoryFunctional}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="carbonSource">
+          <th class="border-r bg-th" mat-header-cell *matHeaderCellDef> Carbon Source </th>
+          <td class="border-r" mat-cell *matCellDef="let element"> {{element.carbonSource}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="categoryId">
+          <th class="border-r bg-th" mat-header-cell *matHeaderCellDef> categoryId </th>
+          <td class="border-r" mat-cell *matCellDef="let element"> {{element.categoryId}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator #paginatorBart [pageSizeOptions]="[14, 30, 50]" showFirstLastButtons
+        aria-label="Select page of periodic elements">
+      </mat-paginator>
+    </div>
+  </div>
+  <div #sidebar class="sidebar d-none">
+    <div class="w-100 py-4 d-flex justify-content-between">
+      <div class="d-flex">
+        <mat-icon class="primary">cloud_done</mat-icon>
+        <div class="fw-semibold pl-2 align-self-center">
+          Emission Activity Tyoe Selector
+        </div>
+      </div>
+      <div class="d-flex gap-2">
+        <mat-icon>crop_free</mat-icon>
+        <mat-icon class="cursor-pointer" (click)="toggleSidebar()">close</mat-icon>
+      </div>
+    </div>
+    <div class="content">
+      <table mat-table [dataSource]="dataSourceEmissionActivities">
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+          <th class="border-l border-r bg-th " mat-header-cell *matHeaderCellDef>
+            <mat-checkbox [color]="'primary'" (change)="$event ? toggleAllRows() : null"
+              [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+            </mat-checkbox>
+          </th>
+          <td class="border-l border-r " mat-cell *matCellDef="let row">
+            <mat-checkbox [color]="'primary'" (click)="$event.stopPropagation()"
+              (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"
+              [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="id">
+          <th class="border-r bg-th" mat-header-cell hidden *matHeaderCellDef> Id </th>
+          <td class="border-r" mat-cell hidden *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="eatId">
+          <th class="border-r bg-th" mat-header-cell *matHeaderCellDef> EAT ID </th>
+          <td class="border-r" mat-cell *matCellDef="let element"> {{element.eatId}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="reportedQuantity">
+          <th class="border-r bg-th" mat-header-cell *matHeaderCellDef> Reported Quantity </th>
+          <td class="border-r" mat-cell *matCellDef="let element"> {{element.reportedQuantity}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedEmissionActivityColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedEmissionActivityColumns;" (click)="selection.toggle(row)">
+        </tr>
+      </table>
+      <mat-paginator #paginatorEmission [pageSizeOptions]="[10 ,30 , 50]">
+      </mat-paginator>
+    </div>
+  </div>
+  <div #cover class="position-absolute"></div>
+</div>

@@ -1,0 +1,437 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+@import "./palette";
+@include mat.core();
+
+
+$myAngularApp-primary: mat.define-palette($primary-palette, 500);
+$myAngularApp-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$myAngularApp-warn: mat.define-palette(mat.$red-palette);
+$myAngularApp-theme: mat.define-light-theme((color: (primary: $myAngularApp-primary,
+        accent: $myAngularApp-accent,
+        warn: $myAngularApp-warn,
+      )));
+
+@include mat.all-component-themes($myAngularApp-theme);
+
+$greenColor: #008000;
+$greenColor50: #4e9066;
+$grayColor: #E5F3E6;
+$border: 1px solid rgba(0, 0, 0, 0.12);
+$whiteColor: white;
+
+html,
+  body {
+  height: 100%;
+  font-size: 12px !important;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// common css
+.w-right {
+  width: 500px;
+}
+
+.w-90 {
+  width: 90px;
+}
+
+.w-102 {
+  width: 102px;
+}
+
+.w-250 {
+  width: 250px;
+}
+
+.h-200 {
+  height: 200px;
+}
+
+.h-form {
+  max-height: calc(100vh - 490px);
+  overflow: auto;
+}
+
+.primary {
+  color: $greenColor50;
+}
+
+.text-gray {
+  color: rgb(162, 162, 162);
+}
+
+.bg-primary-50 {
+  background-color: $grayColor;
+}
+
+.bg-gray {
+  background-color: #f3f5f5;
+}
+
+.bg-th {
+  background-color: #EAEEEF !important;
+}
+
+.mr-2 {
+  margin-right: 8px;
+}
+
+.pt-2 {
+  padding-top: 8px;
+}
+
+.pr-2 {
+  padding-right: 8px;
+}
+
+.pl-2 {
+  padding-left: 8px;
+}
+
+.ml-60 {
+  margin-left: 60px;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.border-radius-2 {
+  border-radius: 2px;
+}
+
+.border-b {
+  border-bottom: $border;
+}
+
+.border-r {
+  border-right: $border;
+}
+
+.border-t {
+  border-top: $border;
+}
+
+.border-l {
+  border-left: $border;
+}
+
+// class in only this source
+
+.headerBartID {
+  height: 56px;
+  align-items: center;
+}
+
+.table-bart {
+  overflow-x: auto;
+  width: calc(100vw - 806px);
+  height: calc(100vh - 72px);
+}
+
+.left-layout {
+  .mat-mdc-row {
+    border-bottom: $border !important;
+  }
+
+  .mat-mdc-form-field-infix {
+    min-height: 48px !important;
+    height: 48px;
+  }
+
+  .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+
+  .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+    padding-top: 12px !important;
+  }
+
+  .search {
+    .mat-icon {
+      width: 16px;
+      height: 16px;
+      color: gray;
+    }
+  }
+
+  .mat-mdc-form-field:not(.mat-form-field-disabled) .mat-mdc-floating-label.mdc-floating-label {
+    font-size: 12px !important;
+    transform: translateY(-15px);
+
+  }
+}
+
+.right-layout {
+  .treeMethod {
+    width: 30px;
+    height: 25px;
+    border-width: 0px 0px 1px 1px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.12);
+    margin-left: 30px;
+  }
+
+  .treeMethod.position-absolute {
+    top: -20px;
+    height: 40px;
+  }
+
+  .mat-mdc-form-field-infix {
+    min-height: 32px !important;
+    height: 32px;
+  }
+
+  .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+    top: 16px;
+  }
+
+  .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+    padding-top: 4px;
+    padding-bottom: 0px;
+  }
+
+  .mat-mdc-select-value-text {
+    font-size: 12px !important;
+  }
+
+  .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+
+  .dropdown-toggle {
+    padding: 9px;
+    background-color: $greenColor50;
+    border-radius: 0px 2px 2px 0px;
+    border-width: 0px;
+  }
+}
+
+.method {
+  border: $border;
+}
+
+.method:hover {
+  background-color: $grayColor;
+  border: 1px solid $greenColor;
+}
+
+.bi-trash:hover {
+  color: gray;
+}
+
+.plus-square {
+  width: 16px;
+  height: 16px;
+  border: 1px solid $greenColor;
+  border-radius: 2px;
+  background-color: $greenColor;
+  color: $whiteColor;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.addMethod {
+  border: 1px solid $greenColor;
+}
+
+.inventory {
+  padding: 8px;
+  background-color: $greenColor;
+  border-radius: 2px 0px 0px 2px;
+  color: $whiteColor;
+  border-width: 0px;
+}
+
+.mat-table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  display: table;
+  border-collapse: collapse;
+  margin: 0px;
+}
+
+.h-table {
+  height: calc(100vh - 80px);
+}
+
+.btn-save {
+  color: $whiteColor;
+  background-color: $greenColor;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+.node-name {
+  width: 200px;
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.active {
+  background-color: $grayColor;
+}
+
+.sidebar {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 50%;
+  background-color: $whiteColor;
+  border: $border;
+  padding: 0 20px;
+  animation-name: example;
+  animation-duration: 500ms;
+  box-shadow:
+    inset 0 -3em 3em rgba(255, 252, 252, 0.3),
+    0 0 0 2px white,
+    0.3em 0.3em 1em rgba(255, 255, 255, 0.6);
+  z-index: 99;
+}
+
+@keyframes example {
+  0% {
+    left: -200px;
+    opacity: 0;
+  }
+
+  25% {
+    left: -150px;
+    opacity: 0.25;
+  }
+
+  50% {
+    left: -100px;
+    opacity: 0.5;
+  }
+
+  75% {
+    left: -50px;
+    opacity: 0.75;
+  }
+
+  100% {
+    left: 0px;
+    opacity: 1;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: #acacac;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.cover {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #555;
+  opacity: 0.25;
+  z-index: 9;
+}
+
+// custom material
+.mdc-text-field__input,
+.mat-mdc-select-value-text {
+  font-size: 12px !important;
+}
+
+.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text {
+  color: $greenColor50 !important;
+  font-size: 12px;
+}
+
+.mdc-data-table__row:last-child .mat-mdc-cell {
+  border-bottom: $border !important;
+}
+
+.mat-mdc-option .mdc-list-item__primary-text {
+  font-size: 12px !important;
+}
+
+.mat-primary .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-minimal::after {
+  color: $greenColor50 !important;
+  font-size: 12px;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: $grayColor;
+}
+
+.mat-mdc-icon-button {
+  border-radius: 0px !important;
+}
+
+.mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused):not(.mdc-text-field--disabled) {
+  .mdc-notched-outline>* {
+    border-color: rgba(0, 0, 0, 0.12) !important;
+  }
+}
+
+.mat-tree-node:hover {
+  background-color: $grayColor;
+}
+
+.tree {
+  height: calc(100vh - 132px);
+  overflow-y: auto;
+
+  .mdc-icon-button {
+    background-color: transparent !important;
+  }
+}
+
+.mat-row,
+.mat-mdc-header-row {
+  display: table-row;
+}
+
+.mat-cell,
+.mat-mdc-header-cell {
+  word-wrap: initial;
+  display: table-cell;
+  padding: 0px 5px;
+  line-break: unset;
+  width: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.mat-mdc-row,
+.mdc-data-table__content,
+.mat-mdc-header-cell,
+.mat-tree-node {
+  font-size: 12px !important;
+}
